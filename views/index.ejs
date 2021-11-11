@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <title>URL Shortener</title>
+</head>
+
+<body>
+    <div class="container">
+        <section>
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-15 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+                                <h1>URL Shortener</h1><br>
+                                <form action="/short_url" method="POST" class="md-3 form-inline">
+                                    <label for="originalUrl" class="sr-only">URL</label>
+                                    <input required placeholder="Long URL" type="url" name="originalUrl" id="originalUrl" class="form-control col mr-2" />
+                                    <button class="btn btn-success" type="submit">Shorten URL</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section>
+            <div class="container py-5 h-100">
+                <div class="row d-flex justify-content-center align-items-center h-100">
+                    <div class="col-15 col-md-12 col-lg-12 col-xl-12">
+                        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+                            <div class="card-body p-5 text-center">
+                                <h3>Your Shortened Urls</h3><br>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>Original URL</th>
+                                            <th>Shortened URL</th>
+                                            <th>Hits</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% urlsData.forEach(currUrl => { %>
+                                        <tr>
+                                            <td><a href="<%= currUrl.fullUrl %>"><%= currUrl.fullUrl %></a></td>
+                                            <td><a href="<%= currUrl.shortUrl %>"><%= domain+"/"+currUrl.shortUrl %></a></td>
+                                            <td><%= currUrl.hits %></td>
+                                        </tr>
+                                        <% }) %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</body>
+
+</html>

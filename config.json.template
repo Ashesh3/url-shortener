@@ -1,0 +1,9 @@
+{
+    "DOMAIN": "https://example.com",
+    "PORT": 8080,
+    "MONGODB_HOST": "db_host",
+    "MONGODB_PORT": 27017,
+    "MONGODB_DB": "db_name",
+    "MONGODB_USER": "db_user",
+    "MONGODB_PASSWORD": "db_pass"
+}
