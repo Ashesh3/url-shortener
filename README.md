@@ -4,7 +4,7 @@ A URL Shortened built with ExpressJS using MongoDB as the database.
 
 *Working Demo*: https://shrturl.us.to/
 
-![](https://user-images.githubusercontent.com/3626859/141311313-c54c8fb0-2c6d-4eac-b175-ecb22b77d089.png)
+![](https://user-images.githubusercontent.com/3626859/141315732-78f00051-523b-4bb7-bfee-1da053005edb.png)
 
 
 # Instructions
