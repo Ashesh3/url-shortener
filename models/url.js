@@ -1,5 +1,4 @@
 const db = require('mongoose')
-const { nanoid } = require('nanoid');
 
 const urlDetailSchema = new db.Schema({
 	fullUrl: {
@@ -9,7 +8,6 @@ const urlDetailSchema = new db.Schema({
 	shortUrl: {
 		type: String,
 		required: true,
-		default: nanoid(6),
 	},
 	hits: {
 		type: Number,

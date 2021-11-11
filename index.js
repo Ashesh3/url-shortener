@@ -3,6 +3,7 @@ const app = express()
 const db = require('mongoose')
 const UrlDetail = require('./models/url')
 const config = JSON.parse(require('fs').readFileSync('./config.json'))
+const { nanoid } = require('nanoid');
 
 app.use(express.urlencoded({ extended: false }))
 app.set('view engine', 'ejs')
@@ -22,7 +23,8 @@ app.post('/short_url', async (req, res) => {
 	const originalUrl = req.body.originalUrl
 	const record = new UrlDetail({
 		fullUrl: originalUrl,
-		owner: req.headers['x-forwarded-for'] || req.socket.remoteAddress
+		owner: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
+		shortUrl: nanoid(6)
 	})
 	await record.save()
 	res.redirect('/')
