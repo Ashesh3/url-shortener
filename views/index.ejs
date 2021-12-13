@@ -17,9 +17,14 @@
                         <div class="card shadow-2-strong" style="border-radius: 1rem;">
                             <div class="card-body p-5 text-center">
                                 <h1>URL Shortener</h1><br>
-                                <form action="/short_url" method="POST" class="md-3 form-inline">
-                                    <label for="originalUrl" class="sr-only">URL</label>
-                                    <input required placeholder="Long URL" type="url" name="originalUrl" id="originalUrl" class="form-control col mr-2" />
+                                <form action="/short_url" method="POST">
+                                    <div class="form-group">
+                                        <input required placeholder="Long URL" type="url" name="originalUrl" id="originalUrl" class="form-control col mr-2" />
+                                    </div>
+                                    <div class="form-inline">
+                                        <img src="<%= captcha %>" width="200px" height="50px" style="margin: 20px;" alt="captcha" />
+                                        <input type="text" required placeholder="Captcha" id="capImage" name="captcha" class="form-control col mr-2" />
+                                    </div>
                                     <button class="btn btn-success" type="submit">Shorten URL</button>
                                 </form>
                             </div>

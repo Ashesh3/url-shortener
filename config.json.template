@@ -5,5 +5,6 @@
     "MONGODB_PORT": 27017,
     "MONGODB_DB": "db_name",
     "MONGODB_USER": "db_user",
-    "MONGODB_PASSWORD": "db_pass"
+    "MONGODB_PASSWORD": "db_pass",
+    "SECRET": "cookie_secret",
 }
