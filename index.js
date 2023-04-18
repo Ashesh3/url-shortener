@@ -2,6 +2,7 @@ const express = require('express')
 const session = require('express-session');
 const app = express()
 const db = require('mongoose')
+const URL = require('url')
 const UrlDetail = require('./models/url')
 require('dotenv').config();
 const {
@@ -60,6 +61,10 @@ app.post('/short_url', async (req, res) => {
 	if (!captcha.check(req, req.body.captcha))
 		return res.send('Invalid captcha')
 	const originalUrl = req.body.originalUrl
+
+	if(URL.parse(originalUrl).hostname !== 'google.com')
+		return res.send('only google.com/* urls are allowed in this demo')
+
 	const record = new UrlDetail({
 		fullUrl: originalUrl,
 		owner: req.headers['x-forwarded-for'] || req.socket.remoteAddress,
