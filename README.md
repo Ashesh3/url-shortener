@@ -2,7 +2,7 @@
 
 A URL Shortened built with ExpressJS using MongoDB as the database.
 
-*Working Demo*: https://shortener-project.azurewebsites.net/
+*Working Demo*: https://short.ashsec.us.to/
 
 ![](https://user-images.githubusercontent.com/3626859/141315732-78f00051-523b-4bb7-bfee-1da053005edb.png)
 
