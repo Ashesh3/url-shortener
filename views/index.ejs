@@ -50,12 +50,12 @@
                                     </thead>
                                     <tbody>
                                         <% urlsData.forEach(currUrl => { %>
-                                        <tr>
-                                            <td><a href="<%= currUrl.fullUrl %>"><%= currUrl.fullUrl %></a></td>
-                                            <td><a href="<%= currUrl.shortUrl %>"><%= domain+"/"+currUrl.shortUrl %></a></td>
-                                            <td><%= currUrl.hits %></td>
-                                        </tr>
-                                        <% }) %>
+                                            <tr>
+                                              <td><a href="<%= currUrl.fullUrl %>"><%= currUrl.fullUrl %></a></td>
+                                              <td><a href="<%= currUrl.shortUrl %>"><%= siteUrl + currUrl.shortUrl %></a></td>
+                                              <td><%= currUrl.hits %></td>
+                                            </tr>
+                                          <% }) %>
                                     </tbody>
                                 </table>
                             </div>

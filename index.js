@@ -3,11 +3,17 @@ const session = require('express-session');
 const app = express()
 const db = require('mongoose')
 const UrlDetail = require('./models/url')
-const config = JSON.parse(require('fs').readFileSync('./config.json'))
-const { nanoid } = require('nanoid');
+require('dotenv').config();
+const {
+	nanoid
+} = require('nanoid');
 const bodyParser = require('body-parser');
 
-app.use(express.urlencoded({ extended: false }))
+const PORT = process.env.PORT || 3000
+
+app.use(express.urlencoded({
+	extended: false
+}))
 app.set('view engine', 'ejs')
 
 const captcha = require('svg-captcha-express').create({
@@ -22,16 +28,17 @@ const captcha = require('svg-captcha-express').create({
 
 app.use(
 	session({
-		secret: config.SECRET,
+		secret: process.env.SECRET,
 		resave: false,
 		saveUninitialized: true
 	})
 );
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({
+	extended: false
+}));
 
-
-db.connect(`mongodb+srv://${config.MONGODB_USER}:${config.MONGODB_PASSWORD}@${config.MONGODB_HOST}/${config.MONGODB_DB}?retryWrites=true&w=majority`, {
+db.connect(process.env.MONGODB_URI, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true
 })
@@ -39,8 +46,14 @@ db.connect(`mongodb+srv://${config.MONGODB_USER}:${config.MONGODB_PASSWORD}@${co
 app.get('/captcha.jpg', captcha.image());
 
 app.get('/', async (req, res) => {
-	const allUrls = await UrlDetail.find({ owner: req.headers['x-forwarded-for'] || req.socket.remoteAddress })
-	res.render('index', { captcha: '/captcha.jpg', urlsData: allUrls, domain: config.DOMAIN })
+	const allUrls = await UrlDetail.find({
+		owner: req.headers['x-forwarded-for'] || req.socket.remoteAddress
+	})
+	res.render('index', {
+		captcha: '/captcha.jpg',
+		urlsData: allUrls,
+		siteUrl: req.protocol + '://' + req.get('host') + req.originalUrl
+	})
 })
 
 app.post('/short_url', async (req, res) => {
@@ -58,7 +71,9 @@ app.post('/short_url', async (req, res) => {
 
 app.get('/:shortID', async (req, res) => {
 	const shortID = req.params.shortID
-	const urlDetails = await UrlDetail.findOne({ shortUrl: shortID })
+	const urlDetails = await UrlDetail.findOne({
+		shortUrl: shortID
+	})
 	if (!urlDetails) return res.status(404).send('No short url found')
 	urlDetails.hits += 1
 	await urlDetails.save()
@@ -66,7 +81,7 @@ app.get('/:shortID', async (req, res) => {
 })
 
 db.connection.on('open', async () => {
-	app.listen(config.PORT, () => {
-		console.log('Listening on PORT: ' + config.PORT)
+	app.listen(PORT, () => {
+		console.log('Listening on PORT: ' + PORT)
 	})
 })
